@@ -13,12 +13,12 @@ function fetchData() {
   // Replace with your API endpoint URL
   const apiUrl = "https://ybqv8ehvvk.execute-api.us-west-2.amazonaws.com/test";
 
-  const requestBody = {
+  var requestBody = {
     region: "us-west-2"
   };
 
   fetch(apiUrl, {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
