@@ -11,7 +11,7 @@ document.getElementById("fetchButton").addEventListener("click", fetchData);
 
 function fetchData() {
   // Replace with your API endpoint URL
-  const apiUrl = "https://api.example.com/data";
+  const apiUrl = "https://ybqv8ehvvk.execute-api.us-west-2.amazonaws.com/test";
 
   fetch(apiUrl)
     .then(response => response.json())
