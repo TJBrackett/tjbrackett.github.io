@@ -1,17 +1,25 @@
-document.getElementById('button2').addEventListener('click', function() {
-    alert('Button 2 clicked!');
-});
-
-document.getElementById('button3').addEventListener('click', function() {
-    alert('Button 3 clicked!');
-});
-
-
 document.getElementById("fetchButton").addEventListener("click", fetchData);
+document.getElementById("createButton").addEventListener("click", createData);
+document.getElementById("destroyButton").addEventListener("click", destroyData);
+
+function createData() {
+  const apiUrl = "https://z01pvz7zzc.execute-api.us-west-2.amazonaws.com/test";
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const responseDiv = document.getElementById("responseDiv1");
+      responseDiv.innerHTML = JSON.stringify(data, null, 2);
+    })
+    .catch(error => {
+      console.error("Error fetching data:", error);
+      const responseDiv = document.getElementById("responseDiv1");
+      responseDiv.innerHTML = "Error creating data.";
+    });
+}
 
 function fetchData() {
-  // Replace with your API endpoint URL
-  const apiUrl = "https://ybqv8ehvvk.execute-api.us-west-2.amazonaws.com/test";
+  const apiUrl = "https://z01pvz7zzc.execute-api.us-west-2.amazonaws.com/test";
 
   var requestBody = {
     region: "us-west-2"
@@ -26,12 +34,29 @@ function fetchData() {
   })
     .then(response => response.json())
     .then(data => {
-      const responseDiv = document.getElementById("responseDiv");
+      const responseDiv = document.getElementById("responseDiv2");
       responseDiv.innerHTML = JSON.stringify(data, null, 2);
     })
     .catch(error => {
-      console.error("Error fetching data:", error);
-      const responseDiv = document.getElementById("responseDiv");
+      console.error("Error creating data:", error);
+      const responseDiv = document.getElementById("responseDiv2");
       responseDiv.innerHTML = "Error fetching data.";
+    });
+}
+
+function destroyData() {
+  const apiUrl = "https://z01pvz7zzc.execute-api.us-west-2.amazonaws.com/test";
+
+  fetch(apiUrl, {
+    method: "DELETE"
+  })
+    .then(response => {
+      const responseDiv = document.getElementById("responseDiv3");
+      responseDiv.innerHTML = "Data destroyed successfully.";
+    })
+    .catch(error => {
+      console.error("Error destroying data:", error);
+      const responseDiv = document.getElementById("responseDiv3");
+      responseDiv.innerHTML = "Error destroying data.";
     });
 }
