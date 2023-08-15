@@ -2,6 +2,20 @@ document.getElementById("fetchButton").addEventListener("click", fetchData);
 document.getElementById("createButton").addEventListener("click", createData);
 document.getElementById("destroyButton").addEventListener("click", destroyData);
 
+const toggleButton = document.getElementById("toggleButton");
+const panel1 = document.getElementById("panel1");
+const panel2 = document.getElementById("panel2");
+
+toggleButton.addEventListener("click", function () {
+    if (panel1.style.display === "none") {
+        panel1.style.display = "block";
+        panel2.style.display = "none";
+    } else {
+        panel1.style.display = "none";
+        panel2.style.display = "block";
+    }
+});
+
 function toggleLoadingIndicator(show) {
     const loadingIndicator = document.getElementById("loadingIndicator");
     loadingIndicator.style.display = show ? "block" : "none";
