@@ -2,16 +2,6 @@ document.getElementById("fetchButton").addEventListener("click", fetchData);
 document.getElementById("createButton").addEventListener("click", createData);
 document.getElementById("destroyButton").addEventListener("click", destroyData);
 
-const regionList = document.getElementById("regionList");
-regionList.addEventListener("click", updateRegion);
-
-let selectedRegion = "us-west-2";
-
-function updateRegion(event) {
-  const selectedListItem = event.target;
-  selectedRegion = selectedListItem.dataset.region;
-}
-
 function createData() {
   const apiUrl = "https://z01pvz7zzc.execute-api.us-west-2.amazonaws.com/test";
 
@@ -30,7 +20,8 @@ function createData() {
 
 function fetchData() {
   const apiUrl = "https://z01pvz7zzc.execute-api.us-west-2.amazonaws.com/test";
-
+  const selectedRegion = document.querySelector('input[name="region"]:checked').value;
+  
   var requestBody = {
     region: selectedRegion
   };

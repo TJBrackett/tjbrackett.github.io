@@ -12,13 +12,17 @@
     </header>
 
     <main>
-        <p>Select a region from the list:</p>
-        <ul id="regionList">
-            <li data-region="us-west-1">US West 1 (N. California)</li>
-            <li data-region="us-west-2">US West 2 (Oregon)</li>
-            <li data-region="us-east-1">US East 1 (N. Virginia)</li>
-            <li data-region="us-east-2">US East 2 (Ohio)</li>
-        </ul>
+        <div>
+            <label for="regionSelector">Select Region:</label>
+            <input type="radio" id="us-west-1" name="region" value="us-west-1">
+            <label for="us-west-1">US West 1 (N. California)</label>
+            <input type="radio" id="us-west-2" name="region" value="us-west-2">
+            <label for="us-west-2">US West 2 (Oregon)</label>
+            <input type="radio" id="us-east-1" name="region" value="us-east-1">
+            <label for="us-east-1">US East 1 (N. Virginia)</label>
+            <input type="radio" id="us-east-2" name="region" value="us-east-2">
+            <label for="us-east-2">US East 2 (Ohio)</label>
+        </div>
         <button id="fetchButton">Fetch Data</button>
         <div id="responseDiv2"></div>
         <button id="createButton">Create Data</button>
