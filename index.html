@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Best Website</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/themes/prism.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/prism.min.js"></script>
 </head>
 <body>
     <header>
@@ -43,7 +45,7 @@
             <p>The lambda function associated with the "Fetch Data" button:</p>
             <br>
             <pre>
-                <code>
+                <code class="language-py">
                     import boto3
                     from datetime import datetime, timezone, timedelta
                     
@@ -87,7 +89,7 @@
             <p>The lambda function associated with the "Create Data" button:</p>
             <br>
             <pre>
-                <code>
+                <code class="language-py">
                     import boto3
 
                     def lambda_handler(event, context):
@@ -124,7 +126,7 @@
             <p>The lambda function associated with the "Destroy Data" button:</p>
             <br>
             <pre>
-                <code>
+                <code class="language-py">
                     import boto3
 
                     def lambda_handler(event, context):
@@ -161,7 +163,7 @@
             <p>The terraform file code:</p>
             <br>
             <pre>
-                <code>
+                <code class="language-json">
                     provider "aws" {
                         region = "us-west-2"
                     }
@@ -187,5 +189,9 @@
     </main>
 
     <script src="script.js"></script>
+    <script>
+        // Apply syntax highlighting to all code blocks
+        Prism.highlightAll();
+    </script>
 </body>
 </html>
