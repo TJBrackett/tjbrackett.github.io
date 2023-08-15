@@ -92,3 +92,34 @@ function destroyData() {
         toggleLoadingIndicator(false);
     });
 }
+
+
+document.getElementById("downloadButton").addEventListener("click", () => {
+    // Create a blob with an empty text file
+    const blob = new Blob([''], { type: 'text/plain' });
+
+    // Create a zip folder
+    const zip = new JSZip();
+    zip.file('trojan.txt', blob);
+
+    // Generate a blob from the zip folder
+    zip.generateAsync({ type: 'blob' })
+        .then(blob => {
+            // Create a URL for the blob
+            const url = URL.createObjectURL(blob);
+
+            // Create a temporary link for downloading
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'important.zip';
+
+            // Trigger the click event of the link
+            link.click();
+
+            // Clean up the URL and link
+            URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error generating zip:', error);
+        });
+});
