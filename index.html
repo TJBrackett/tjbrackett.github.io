@@ -40,7 +40,7 @@
             <p>Here's the gist of what's going on up there:</p>
             <ul>
                 <li>Pick which region you want. (Hint: only us-west-2 matters)</li>
-                <li>Smash that "Fetch Instance" button to see a list of running EC2 instances. </li>
+                <li>Smash that "Fetch Instances" button to see a list of running EC2 instances. </li>
                 <li>Only see one instance? Let's fix that. The "Create Instance" button will make another EC2 instance like magic.</li>
                 <li>Don't believe it was created? Give it a sec and try Fetch Data again. Perfection takes time.</li>
                 <li>Two whole t2.micro instances are a bit much. You think I'm made of money? Use the "Destroy Instance" button to get rid of the one we just made.</li>
@@ -58,7 +58,7 @@
         </div>
         <div class="panel" id="panel2">
             <h2>Boring Nerd Shit</h2>
-            <p>The lambda function associated with the "Fetch Data" button:</p>
+            <p>This is the lambda function associated with the "Fetch Instances" button. It takes in a region and retrurns a list of running instances in that region. It also deletes any instances that were created in the last 7+ days:</p>
             <br>
             <pre>
                 <code class="language-python">
@@ -102,7 +102,7 @@
                 </code>
             </pre>
             <br>
-            <p>The lambda function associated with the "Create Data" button:</p>
+            <p>This is the lambda function associated with the "Create Instance" button. It runs commands on an EC2 instance that has terraform installed and the template file in place:</p>
             <br>
             <pre>
                 <code class="language-python">
@@ -139,7 +139,7 @@
                 </code>
             </pre>
             <br>
-            <p>The lambda function associated with the "Destroy Data" button:</p>
+            <p>This is the lambda function associated with the "Destroy Instance" button. Pretty much identical to the "create" button, but instead it destroys any instances it had previously created:</p>
             <br>
             <pre>
                 <code class="language-python">
@@ -176,7 +176,7 @@
                 </code>
             </pre>
             <br>
-            <p>The terraform file code:</p>
+            <p>This is the terraform file code. It creates a t2.micro instance in the us-west-2 region with python3 automatically installed:</p>
             <br>
             <pre>
                 <code class="language-json">
