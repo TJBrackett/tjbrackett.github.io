@@ -34,13 +34,147 @@
         <br>
         <br>
         <button id="toggleButton">Toggle</button>
-        <div class="panel" id="panel1">
-            <h2>Panel 1 Content</h2>
+        <div class="panel" id="panel1" style="display: block;">
+            <h2>The Good Shit</h2>
             <p>This is the content of panel 1.</p>
         </div>
         <div class="panel" id="panel2">
-            <h2>Panel 2 Content</h2>
-            <p>This is the content of panel 2.</p>
+            <h2>Boring Nerd Shit</h2>
+            <p>The lambda function associated with the "Fetch Data" button:</p>
+            <br>
+            <code>
+                import boto3
+                from datetime import datetime, timezone, timedelta
+                
+                def lambda_handler(event, context):
+                    aws_region = event['region']
+                    ec2 = boto3.client('ec2', region_name=aws_region)
+                
+                    response = ec2.describe_instances(Filters=[{'Name': 'instance-state-name', 'Values': ['running']}])
+                
+                    instances_list = []
+                
+                    current_time = datetime.now(timezone.utc)
+                
+                    for reservation in response['Reservations']:
+                        for instance in reservation['Instances']:
+                            instance_info = {
+                                "InstanceId": instance['InstanceId'],
+                                "InstanceType": instance['InstanceType'],
+                                "LaunchTime": instance['LaunchTime'].strftime("%Y-%m-%d %H:%M:%S"),
+                                "KeyName": instance.get('KeyName', 'N/A')
+                            }
+                            instances_list.append(instance_info)
+                
+                            # Check if instance is older than 7 days and stop it
+                            launch_time = instance['LaunchTime'].replace(tzinfo=timezone.utc)
+                            age = current_time - launch_time
+                            if age.days >= 7:
+                                print(f"Stopping instance {instance['InstanceId']} (age: {age.days} days)")
+                                ec2.stop_instances(InstanceIds=[instance['InstanceId']])
+                
+                    # Sort instances by LaunchTime in descending order (newest to oldest)
+                    instances_list.sort(key=lambda x: x['LaunchTime'], reverse=True)
+                
+                    return {
+                        "statusCode": 200,
+                        "body": instances_list
+                    }
+            </code>
+            <br>
+            <p>The lambda function associated with the "Create Data" button:</p>
+            <br>
+            <code>
+                import boto3
+
+                def lambda_handler(event, context):
+                    instance_id = "i-03efe95c254b358ce"
+                    commands = [
+                        "cd /home/ec2-user/scripts/envs/ec2",
+                        "terraform init",
+                        "terraform apply -auto-approve"
+                    ]
+                    ssm_client = boto3.client('ssm')
+                    
+                    response = ssm_client.send_command(
+                        InstanceIds=[instance_id],
+                        DocumentName='AWS-RunShellScript',
+                        Parameters={'commands': commands}
+                    )
+
+                    command_id = response['Command']['CommandId']
+                    print(f"Command ID: {command_id}")
+                    
+                    waiter = ssm_client.get_waiter('command_executed')
+                    waiter.wait(
+                        CommandId=command_id,
+                        InstanceId=instance_id,
+                    )
+
+                    return {
+                        "statusCode": 200,
+                        "body": "New instance created successfully."
+                    }
+            </code>
+            <br>
+            <p>The lambda function associated with the "Destroy Data" button:</p>
+            <br>
+            <code>
+                import boto3
+
+                def lambda_handler(event, context):
+                    instance_id = "i-03efe95c254b358ce"
+                    commands = [
+                        "cd /home/ec2-user/scripts/envs/ec2",
+                        "terraform init",
+                        "terraform destroy -auto-approve"
+                    ]
+                    ssm_client = boto3.client('ssm')
+                    
+                    response = ssm_client.send_command(
+                        InstanceIds=[instance_id],
+                        DocumentName='AWS-RunShellScript',
+                        Parameters={'commands': commands}
+                    )
+
+                    command_id = response['Command']['CommandId']
+                    print(f"Command ID: {command_id}")
+                    
+                    waiter = ssm_client.get_waiter('command_executed')
+                    waiter.wait(
+                        CommandId=command_id,
+                        InstanceId=instance_id,
+                    )
+
+                    return {
+                        "statusCode": 200,
+                        "body": "New instance destroyed successfully."
+                    }
+            </code>
+            <br>
+            <p>The terraform file code:</p>
+            <br>
+            <code>
+                provider "aws" {
+                    region = "us-west-2"
+                  }
+                  
+                  resource "aws_instance" "demo_instance" {
+                    ami           = "ami-04e35eeae7a7c5883"
+                    instance_type = "t2.micro"
+                    subnet_id     = "subnet-1e20dd66"
+                  
+                    user_data = <<-EOF
+                                #!/bin/bash
+                                yum update -y
+                                yum install -y python3
+                                EOF
+                  
+                    tags = {
+                      Name = "DemoInstance"
+                    }
+                  }
+            </code>
         </div>
     </main>
 
