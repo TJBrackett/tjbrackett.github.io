@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Best Website</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="themes/prism.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/themes/prism.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -44,7 +44,7 @@
             <p>The lambda function associated with the "Fetch Data" button:</p>
             <br>
             <pre>
-                <code class="language-py">
+                <code class="language-python">
                     import boto3
                     from datetime import datetime, timezone, timedelta
                     
@@ -88,7 +88,7 @@
             <p>The lambda function associated with the "Create Data" button:</p>
             <br>
             <pre>
-                <code class="language-py">
+                <code class="language-python">
                     import boto3
 
                     def lambda_handler(event, context):
@@ -125,7 +125,7 @@
             <p>The lambda function associated with the "Destroy Data" button:</p>
             <br>
             <pre>
-                <code class="language-py">
+                <code class="language-python">
                     import boto3
 
                     def lambda_handler(event, context):
@@ -187,6 +187,7 @@
         </div>
     </main>
     <script src="script.js"></script>
-    <script src="prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@v1.24.1/components/prism-core.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prismjs@v1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>
