@@ -3,6 +3,7 @@ document.getElementById("createButton").addEventListener("click", createData);
 document.getElementById("destroyButton").addEventListener("click", destroyData);
 
 function toggleLoadingIndicator(show) {
+    console.log("Toggling loading indicator:", show);
     const loadingIndicator = document.getElementById("loadingIndicator");
     loadingIndicator.style.display = show ? "block" : "none";
 }
@@ -24,6 +25,7 @@ function createData() {
     })
     .finally(() => {
         toggleLoadingIndicator(false);
+        fetchData()
     });
 }
 
@@ -76,5 +78,6 @@ function destroyData() {
     })
     .finally(() => {
         toggleLoadingIndicator(false);
+        fetchData()
     });
 }
