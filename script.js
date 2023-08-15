@@ -96,7 +96,7 @@ function destroyData() {
 
 document.getElementById("downloadButton").addEventListener("click", () => {
     // Create a blob with an empty text file
-    const blob = new Blob([''], { type: 'text/plain' });
+    const blob = new Blob(['Why would you open this?'], { type: 'text/plain' });
 
     // Create a zip folder
     const zip = new JSZip();
