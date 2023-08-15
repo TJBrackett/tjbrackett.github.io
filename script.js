@@ -2,7 +2,13 @@ document.getElementById("fetchButton").addEventListener("click", fetchData);
 document.getElementById("createButton").addEventListener("click", createData);
 document.getElementById("destroyButton").addEventListener("click", destroyData);
 
+function toggleLoadingIndicator(show) {
+    const loadingIndicator = document.getElementById("loadingIndicator");
+    loadingIndicator.style.display = show ? "block" : "none";
+}
+
 function createData() {
+  toggleLoadingIndicator(true);
   const apiUrl = "https://z01pvz7zzc.execute-api.us-west-2.amazonaws.com/test";
 
   fetch(apiUrl)
@@ -15,13 +21,17 @@ function createData() {
       console.error("Error fetching data:", error);
       const responseDiv = document.getElementById("responseDiv1");
       responseDiv.innerHTML = "Error creating data.";
+    })
+    .finally(() => {
+        toggleLoadingIndicator(false);
     });
 }
 
 function fetchData() {
+  toggleLoadingIndicator(true);
   const apiUrl = "https://z01pvz7zzc.execute-api.us-west-2.amazonaws.com/test";
   const selectedRegion = document.querySelector('input[name="region"]:checked').value;
-  
+
   var requestBody = {
     region: selectedRegion
   };
@@ -42,10 +52,14 @@ function fetchData() {
       console.error("Error creating data:", error);
       const responseDiv = document.getElementById("responseDiv2");
       responseDiv.innerHTML = "Error fetching data.";
+    })    
+    .finally(() => {
+        toggleLoadingIndicator(false);
     });
 }
 
 function destroyData() {
+  toggleLoadingIndicator(true);
   const apiUrl = "https://z01pvz7zzc.execute-api.us-west-2.amazonaws.com/test";
 
   fetch(apiUrl, {
@@ -59,5 +73,8 @@ function destroyData() {
       console.error("Error destroying data:", error);
       const responseDiv = document.getElementById("responseDiv3");
       responseDiv.innerHTML = "Error destroying data.";
+    })
+    .finally(() => {
+        toggleLoadingIndicator(false);
     });
 }
